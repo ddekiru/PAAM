@@ -34,12 +34,8 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
 
 void Ped::Model::tick()
 {
-  // Compute the next desired position for each agent
-  for (Ped::Tagent *x : agents) {
-    x->computeNextDesiredPosition();
-    x->setX(x->getDesiredX());
-    x->setY(x->getDesiredY());
-  }
+  // EDIT HERE FOR ASSIGNMENT 1
+  
 }
 
 ////////////
