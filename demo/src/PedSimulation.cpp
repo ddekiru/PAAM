@@ -35,6 +35,6 @@ void PedSimulation::runSimulationWithoutQt(int maxNumberOfStepsToSimulate)
   maxSimulationSteps = maxNumberOfStepsToSimulate;
   for(int i = 0; i < maxSimulationSteps; i++)
   {
-    model.tick();
+    model.tick;
   }
 }

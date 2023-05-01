@@ -76,6 +76,7 @@ namespace Ped {
 
     // Internal init function 
     void init(int posX, int posY);
+    
 
     // Returnst he next destination to visit
     Twaypoint* getNextDestination();

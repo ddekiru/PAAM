@@ -12,6 +12,8 @@
 #include <iostream>
 #include <stack>
 #include <algorithm>
+#include <thread>
+#include <omp.h>
 
 void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
 {
@@ -26,17 +28,52 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
   }
 
   // This is the sequential implementation
-  implementation = SEQ;
+  implementation = SEQ; 
 
   // Set up heatmap (relevant for Assignment 4)
   setupHeatmapSeq();
 }
 
+//ASSIGNMENT 1
+
 void Ped::Model::tick()
 {
-  // EDIT HERE FOR ASSIGNMENT 1
-  
+//######### serial
+  // for (Ped::Tagent *x : agents) {
+  //   x->computeNextDesiredPosition();
+  //   x->setX(x->getDesiredX());
+  //   x->setY(x->getDesiredY());
+  // }
+
+//########### OpenMP
+{
+  // Compute the next desired position for each agent
+  #pragma omp parallel for
+  for (int i = 0; i < agents.size(); i++) {
+    agents[i]->computeNextDesiredPosition();
+    agents[i]->setX(agents[i]->getDesiredX());
+    agents[i]->setY(agents[i]->getDesiredY());
+  }
 }
+
+//########## threads
+// {
+//   std::vector<std::thread> threads;
+  
+//   for (int i = 0; i < agents.size(); i++) {
+//     threads.emplace_back([this, i]() {
+//       agents[i]->computeNextDesiredPosition();
+//       agents[i]->setX(agents[i]->getDesiredX());
+//       agents[i]->setY(agents[i]->getDesiredY());
+//     });
+//   }
+//   for (auto& thread : threads) {
+//     thread.join();
+//   }
+// }
+
+}
+
 
 ////////////
 /// Everything below here relevant for Assignment 3.

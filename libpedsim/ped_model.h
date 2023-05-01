@@ -36,6 +36,9 @@ namespace Ped{
     // Coordinates a time step in the scenario: move all agents by one step (if applicable).
     void tick();
 
+    void openMPTick();
+    void threadsTick();
+
     // Returns the agents of this scenario
     const std::vector<Tagent*> getAgents() const { return agents; };
 

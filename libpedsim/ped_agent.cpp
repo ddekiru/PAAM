@@ -24,8 +24,20 @@ void Ped::Tagent::init(int posX, int posY) {
   lastDestination = NULL;
 }
 
+//ASSIGNMENT 1
 void Ped::Tagent::computeNextDesiredPosition() {
- // EDIT HERE FOR ASSIGNMENT 1
+  // Compute the next desired position for each agent
+  destination = getNextDestination();
+  if (destination != NULL) {
+    // Compute the next desired position for each agent
+    double diffX = destination->getx() - x;
+    double diffY = destination->gety() - y;
+    double length = sqrt(diffX * diffX + diffY * diffY);
+    double nextX = x + round(diffX / length);
+    double nextY = y + round(diffY / length);
+    desiredPositionX = nextX;
+    desiredPositionY = nextY;
+  }
 }
 
 void Ped::Tagent::addWaypoint(Twaypoint* wp) {
