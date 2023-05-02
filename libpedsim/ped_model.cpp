@@ -37,6 +37,13 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
 //ASSIGNMENT 1
 void Ped::Model::tick()
 {
+
+  // Compute the next desired position for each agent
+  for (Ped::Tagent *x : agents) {
+    x->computeNextDesiredPosition();
+    move(x);
+  }
+
 //######### serial
   // for (Ped::Tagent *x : agents) {
   //   x->computeNextDesiredPosition();
@@ -44,11 +51,7 @@ void Ped::Model::tick()
   //   x->setY(x->getDesiredY());
   // }
 
-    // Compute the next desired position for each agent
-  for (Ped::Tagent *x : agents) {
-    x->computeNextDesiredPosition();
-    move(x);
-  }
+
 
 //########### OpenMP
 // {
