@@ -35,7 +35,6 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
 }
 
 //ASSIGNMENT 1
-
 void Ped::Model::tick()
 {
 //######### serial
@@ -45,16 +44,22 @@ void Ped::Model::tick()
   //   x->setY(x->getDesiredY());
   // }
 
-//########### OpenMP
-{
-  // Compute the next desired position for each agent
-  #pragma omp parallel for
-  for (int i = 0; i < agents.size(); i++) {
-    agents[i]->computeNextDesiredPosition();
-    agents[i]->setX(agents[i]->getDesiredX());
-    agents[i]->setY(agents[i]->getDesiredY());
+    // Compute the next desired position for each agent
+  for (Ped::Tagent *x : agents) {
+    x->computeNextDesiredPosition();
+    move(x);
   }
-}
+
+//########### OpenMP
+// {
+//   // Compute the next desired position for each agent
+//   #pragma omp parallel for
+//   for (int i = 0; i < agents.size(); i++) {
+//     agents[i]->computeNextDesiredPosition();
+//     agents[i]->setX(agents[i]->getDesiredX());
+//     agents[i]->setY(agents[i]->getDesiredY());
+//   }
+// }
 
 //########## threads
 // {
