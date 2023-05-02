@@ -58,17 +58,16 @@ void Ped::Model::tick()
 
 //########## threads
 // {
-//   std::vector<std::thread> threads;
-  
+//   thread* threads = new thread[agents.size()];
 //   for (int i = 0; i < agents.size(); i++) {
-//     threads.emplace_back([this, i]() {
+//     threads[i] = thread([this, i]() {
 //       agents[i]->computeNextDesiredPosition();
 //       agents[i]->setX(agents[i]->getDesiredX());
 //       agents[i]->setY(agents[i]->getDesiredY());
 //     });
 //   }
-//   for (auto& thread : threads) {
-//     thread.join();
+//   for (int i = 0; i < agents.size(); i++) {
+//     threads[i].join();
 //   }
 // }
 
