@@ -35,9 +35,9 @@ void Ped::Model::setup(std::vector<Ped::Tagent*> agentsInScenario)
 }
 
 //ASSIGNMENT 1
-
 void Ped::Model::tick()
 {
+
 //######### serial
   // for (Ped::Tagent *x : agents) {
   //   x->computeNextDesiredPosition();
@@ -46,31 +46,30 @@ void Ped::Model::tick()
   // }
 
 //########### OpenMP
-{
-  // Compute the next desired position for each agent
-  #pragma omp parallel for
-  for (int i = 0; i < agents.size(); i++) {
-    agents[i]->computeNextDesiredPosition();
-    agents[i]->setX(agents[i]->getDesiredX());
-    agents[i]->setY(agents[i]->getDesiredY());
-  }
-}
-
-//########## threads
 // {
-//   std::vector<std::thread> threads;
-  
+//   // Compute the next desired position for each agent
+//   #pragma omp parallel for
 //   for (int i = 0; i < agents.size(); i++) {
-//     threads.emplace_back([this, i]() {
-//       agents[i]->computeNextDesiredPosition();
-//       agents[i]->setX(agents[i]->getDesiredX());
-//       agents[i]->setY(agents[i]->getDesiredY());
-//     });
-//   }
-//   for (auto& thread : threads) {
-//     thread.join();
+//     agents[i]->computeNextDesiredPosition();
+//     agents[i]->setX(agents[i]->getDesiredX());
+//     agents[i]->setY(agents[i]->getDesiredY());
 //   }
 // }
+
+//########## threads
+{
+  std::vector<std::thread> threads;
+  for (int i = 0; i < agents.size(); i++) {
+    threads.emplace_back([this, i]() {
+      agents[i]->computeNextDesiredPosition();
+      agents[i]->setX(agents[i]->getDesiredX());
+      agents[i]->setY(agents[i]->getDesiredY());
+    });
+  }
+  for (auto& thread : threads) {
+    thread.join();
+  }
+}
 
 }
 
