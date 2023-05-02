@@ -43,6 +43,7 @@ void Ped::Model::tick()
     x->computeNextDesiredPosition();
     move(x);
   }
+  updateHeatmapSeq() ;
 
 //######### serial
   // for (Ped::Tagent *x : agents) {
