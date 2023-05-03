@@ -46,32 +46,33 @@ void Ped::Model::tick()
   // }
 
 //########### OpenMP
-// {
-//   // Compute the next desired position for each agent
-//   #pragma omp parallel for
-//   for (int i = 0; i < agents.size(); i++) {
-//     agents[i]->computeNextDesiredPosition();
-//     agents[i]->setX(agents[i]->getDesiredX());
-//     agents[i]->setY(agents[i]->getDesiredY());
-//   }
-// }
+{
+  // Compute the next desired position for each agent
+  #pragma omp parallel for
+  for (int i = 0; i < agents.size(); i++) {
+    agents[i]->computeNextDesiredPosition();
+    agents[i]->setX(agents[i]->getDesiredX());
+    agents[i]->setY(agents[i]->getDesiredY());
+  }
+}
 
 //########## threads
-{
-  thread* threads = new thread[agents.size()];
-  for (int i = 0; i < agents.size(); i++) {
-    threads[i] = thread([this, i]() {
-      agents[i]->computeNextDesiredPosition();
-      agents[i]->setX(agents[i]->getDesiredX());
-      agents[i]->setY(agents[i]->getDesiredY());
-    });
-  }
-  for (int i = 0; i < agents.size(); i++) {
-    threads[i].join();
-  }
+// {
+//   thread* threads = new thread[agents.size()];
+//   for (int i = 0; i < agents.size(); i++) {
+//     threads[i] = thread([this, i]() {
+//       agents[i]->computeNextDesiredPosition();
+//       agents[i]->setX(agents[i]->getDesiredX());
+//       agents[i]->setY(agents[i]->getDesiredY());
+//     });
+//   }
+//   for (int i = 0; i < agents.size(); i++) {
+//     threads[i].join();
+//   }
+// }
 }
 
-}
+
 
 
 ////////////
