@@ -8,6 +8,7 @@
 #include "ped_agent.h"
 #include "ped_waypoint.h"
 #include <math.h>
+#include <iostream>
 
 Ped::Tagent::Tagent(int posX, int posY) {
   Ped::Tagent::init(posX, posY);
