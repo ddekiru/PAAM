@@ -63,23 +63,23 @@ void Ped::Model::tick()
 // }
 
 //########## threads
-// {
-//   thread* threads = new thread[4];
-//   for (int tid = 0; tid < 4; ++tid) {
-//     threads[tid] = thread([this, tid]() {
-//       int from = tid * agents.size() / 4;
-//       int to = (tid + 1) * agents.size() / 4;
-//       for (int i = from; i < to; ++i) {
-//         agents[i]->computeNextDesiredPosition();
-//         agents[i]->setX(agents[i]->getDesiredX());
-//         agents[i]->setY(agents[i]->getDesiredY());
-//       }
-//     });
-//   }
-//   for (int tid = 0; tid < 4; tid++) {
-//     threads[tid].join();
-//   }
-// }
+{
+  thread* threads = new thread[4];
+  for (int tid = 0; tid < 4; ++tid) {
+    threads[tid] = thread([this, tid]() {
+      int from = tid * agents.size() / 4;
+      int to = (tid + 1) * agents.size() / 4;
+      for (int i = from; i < to; ++i) {
+        agents[i]->computeNextDesiredPosition();
+        agents[i]->setX(agents[i]->getDesiredX());
+        agents[i]->setY(agents[i]->getDesiredY());
+      }
+    });
+  }
+  for (int tid = 0; tid < 4; tid++) {
+    threads[tid].join();
+  }
+}
 
 }
 
